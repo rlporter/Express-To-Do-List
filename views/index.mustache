@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>To Do List</title>
+  <link rel="stylesheet" href="../public/main.css" />
+</head>
+<body>
+
+    <h1>My To Do List</h1>
+    <br />
+    <ul>
+
+      {{#todos}}
+      <form action="/" method="POST">
+        <input type="text" name="addTodo" placeholder="Add a todo" id="entry" />
+        <button type="submit">Add todo</button>
+          <br />
+      </form>
+
+
+      {{#stillToDo}}
+      <form action="/" method="POST">
+          <li><button name="markComplete">Mark complete</button>
+          {{.}}
+          </li>
+        </ul>
+      {{/stillToDo}}
+      {{/todos}}
+      </form>
+    <br />
+
+      <h2>Completed tasks</h2>
+        <ul>
+          {{#todos}}
+          {{^stillToDo}}
+            <li>
+              {{todo}}
+            </li>
+          {{/stillToDo}}
+          {{/todos}}
+        </ul>
+        
+        {{^todos}}
+          <h2>Yay, free time!</h2>
+        {{/todos}}
+
+</body>
+</html>

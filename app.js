@@ -1,16 +1,17 @@
 
 
 const list = [
-  {todo: "Wash the car", stillToDo: true}, {todo: "Buy milk", stillToDo: true}
+  {todo: "Wash the car", stillToDo: true},
+  {todo: "Buy milk", stillToDo: true},
+  {todo: "Walk the dog", stillToDo: false}
 ];
 
-const data = [{todos: list}];
-const completed = [{completed: }];
+const data = {todos: list};
 
 const express = require("express");
 const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
-const mustacheExpress = require("mustache-express");``
+const mustacheExpress = require("mustache-express");
 const app = express();
 
 app.use(express.static("./"));
@@ -22,16 +23,22 @@ app.set("views", "./views");
 
 
 app.get("/", function (req, res) {
-  res.render('index', { todos: data });
+  res.render('index', data);
 });
 
 app.post("/", function (req, res) {
-  list.push({todo:req.body.todo, stillToDo: true});
+  list.push({todo:req.body.addTodo, stillToDo: true});
   res.redirect('/');
 });
 
 app.post("/complete", function (req, res) {
-  completed.push({todo: req.body.todo, stillToDo: false});
+  let completed = req.body.markComplete;
+  function findTodo(item){
+    return item.todo === completed;
+  // console.log(list.find(findTodo));
+  list.find(findTodo);
+  list.push({todo:req.body.addTodo, stillToDo: false});
+  }
   res.redirect('/');
 });
 
